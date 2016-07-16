@@ -1,0 +1,27 @@
+{
+  "name": "raincube-gt",
+  "version": "1.0.0",
+  "description": "Decentralized water management for intelligent pilas in Guatemala.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Raincube/RaincubeGT.git"
+  },
+  "author": "Rigoberto Acifuina (@Rigo_Dev)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Raincube/RaincubeGT/issues"
+  },
+  "homepage": "https://github.com/Raincube/RaincubeGT#readme",
+  "dependencies": {
+    "aws-sdk": "^2.4.7",
+    "express": "^4.14.0",
+    "express-session": "^1.14.0",
+    "moment-timezone": "^0.5.4",
+    "socket.io": "^1.4.8"
+  }
+}
