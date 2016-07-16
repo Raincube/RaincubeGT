@@ -33,7 +33,7 @@ io.on("connection", function (socket) {
 
 
 
-http.listen(8080, "192.168.0.14", function () {
+http.listen(8080, function () {
     console.log("Web Server Started.");
 });
 
