@@ -110,17 +110,18 @@ net.createServer(function (connection) {
         //CONVIRTIENDO DATA DE STRING A JSON.
         var telemetry_data = querystring.parse(data_str);
 
-        io.emit("newDatafromTCP", {
-            "data": data_str
-        });
-
         if (telemetry_data.id == undefined || telemetry_data.r == undefined || telemetry_data.p == undefined) {
             //If the keys have undefined data, do nothing.
             console.log("undefined data");
             return;
-
         } else {
+
             console.log("GOOD DATA");
+
+            io.emit("newDatafromTCP", {
+                "data": data_str
+            });
+
         }
     });
 
