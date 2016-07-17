@@ -61,7 +61,13 @@ socket.on("pilaRequest", function (data){
 });
 
 socket.on("newLevel", function (levels){
-    console.log(levels);
+    $("#raincubeBar").css('width', levels.raincube+'%').attr('aria-valuenow', levels.raincube);
+    $("#pilaBar").css('width', levels.pila+'%').attr('aria-valuenow', levels.raincube);
+
+//    $("#raincubeBar").text(levels.raincube + " %");
+//    $("#pilaBar").text(levels.raincube + " %");
+
+
 });
 
 

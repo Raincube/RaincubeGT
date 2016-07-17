@@ -103,6 +103,8 @@ net.createServer(function (connection) {
 
     connections_number++
 
+    io.emit("newLevel", currentLevels);
+
     io.emit("connectionsUpdated", {
         "cantidad": connections_number
     });
