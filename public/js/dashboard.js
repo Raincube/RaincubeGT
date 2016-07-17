@@ -1,8 +1,4 @@
-var socket = io();
-
 $(document).ready(function () {
-
-    socket.removeAllListeners();
 
     // Add scrollspy to <body>
     $('body').scrollspy({
@@ -33,8 +29,7 @@ $(document).ready(function () {
     });
 });
 
-
-
+var socket = io();
 
 socket.on("connect", function () {
     console.log("connected to socket.io");
