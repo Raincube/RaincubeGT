@@ -45,9 +45,15 @@ app.get('/monitor', function (req, res) {
 io.on("connection", function (socket) {
     console.log("New socket.io client");
 
+
+
     //EVENTOS DEL WEBSITE........
     //EN EL MONITOR DE CONEXIONES, SE ENVIA LA CANTIDAD DE CONEXIONES ACTUALES.
-    io.emit("connectionsUpdated", {
+
+    socket.emit("newLevel", currentLevels);
+
+
+    socket.emit("connectionsUpdated", {
         "cantidad": connections_number
     });
 
