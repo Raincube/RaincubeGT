@@ -1,4 +1,9 @@
+var socket = io();
+
 $(document).ready(function () {
+
+    socket.removeAllListeners();
+
     // Add scrollspy to <body>
     $('body').scrollspy({
         target: ".navbar",
@@ -29,7 +34,7 @@ $(document).ready(function () {
 });
 
 
-var socket = io();
+
 
 socket.on("connect", function () {
     console.log("connected to socket.io");
@@ -51,3 +56,11 @@ function fullPila() {
 function halfPila() {
     socket.emit("halfPila");
 }
+
+socket.on("pilaRequest", function (data){
+    if (data.success === true) {
+        console.log("Command was sent to device");
+    } else {
+        console.log("Command was NOT sent to device");
+    }
+});
