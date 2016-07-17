@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>TeleWeight || Monitor de Conexiones</title>
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link href="css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!--    Favicon   -->
+    <link href="images/favicon.ico" rel="icon">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-default navbar-fixed-top" id="moniNav">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="http://teleweight.gtbilt.com">
+                    Home
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container" id="jumboMonitor">
+        <div class="row">
+            <div class="jumbotron col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+                <h1 id="jumboLabel">Monitor de conexiones</h1>
+                <p>Número de conexiones activas <a class="btn btn-default" role="button"><strong id="cantidadLabel"></strong></a></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h3><span class="glyphicon glyphicon-th-list"></span> Ultimos datos recibidos</h3>
+                <div class="separator"></div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="list-group col-xs-12 col-sm-12 col-md-12 col-lg-12" id="listadoData">
+            </div>
+        </div>
+
+    </div>
+
+    <!--Socket IO-->
+    <script src="/js/socket.io-1.3.7.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script type="application/javascript">
+        var socket = io();
+
+        socket.on("connectionsUpdated", function (data) {
+            $("#cantidadLabel").text(data.cantidad);
+        });
+
+        socket.on("newDatafromTCP", function (object) {
+            if (object.data === "Timeout Reached") {
+                $("#listadoData").prepend("<a class='list-group-item list-group-item-warning'>" + object.data + "</a>");
+            } else if (object.data === "DEVICE DISCONNECTED") {
+                $("#listadoData").prepend("<a class='list-group-item list-group-item-danger'>" + object.data + "</a>");
+            } else if (object.data === "NEW CONNECTION") {
+                $("#listadoData").prepend("<a class='list-group-item list-group-item-success'>" + object.data + "</a>");
+            } else {
+                $("#listadoData").prepend("<a class='list-group-item'>" + object.data + "</a>");
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>
