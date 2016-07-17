@@ -77,6 +77,12 @@ socket.on("newLevel", function (levels) {
         $("#pilaBar").removeClass("progress-bar-danger");
     }
 
+    if (raincubePercentage < 10) {
+        $("#raincubeBar").addClass("progress-bar-danger");
+    } else {
+        $("#raincubeBar").removeClass("progress-bar-danger");
+    }
+
     var noDecimalasRaincubePercentage = Number(raincubePercentage).toFixed(0);
     var noDecimalsPilaPercentage = Number(pilaPercentage).toFixed(0);
 
