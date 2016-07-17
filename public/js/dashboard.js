@@ -71,10 +71,13 @@ socket.on("newLevel", function (levels) {
     var raincubeFirstStep = levels.raincube * 100;
     var raincubePercentage = raincubeFirstStep / raincubeHeight;
 
-    $("#raincubeBar").css('width', raincubePercentage + '%').attr('aria-valuenow', raincubePercentage);
-    $("#pilaBar").css('width', pilaPercentage + '%').attr('aria-valuenow', pilaPercentage);
+    var noDecimalasRaincubePercentage = Number(raincubePercentage).toFixed(0);
+    var noDecimalsPilaPercentage = Number(pilaPercentage).toFixed(0);
 
-    $("#raincubeBar").text(pilaPercentage + " %");
-    $("#pilaBar").text(raincubePercentage + " %");
+    $("#raincubeBar").css('width', noDecimalasRaincubePercentage + '%').attr('aria-valuenow', noDecimalasRaincubePercentage);
+    $("#pilaBar").css('width', noDecimalsPilaPercentage + '%').attr('aria-valuenow', noDecimalsPilaPercentage);
+
+    $("#raincubeBar").text(noDecimalasRaincubePercentage + " %");
+    $("#pilaBar").text(noDecimalsPilaPercentage + " %");
 
 });
