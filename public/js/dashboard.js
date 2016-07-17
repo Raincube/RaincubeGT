@@ -42,9 +42,9 @@ socket.on("reconnect", function () {
 
 
 function fullPila() {
-    socket.emit("");
+    socket.emit("fullPila");
 }
 
 function halfPila() {
-    socket.emit("");
+    socket.emit("halfPila");
 }
