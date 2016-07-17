@@ -9,10 +9,13 @@ var io = require("socket.io")(http);
 var net = require('net');
 app.use(express.static('public'));
 
+
 //VARIABLES PARA TCP.
 var TCP_HOST = "ec2-54-86-114-164.compute-1.amazonaws.com";
 var TCP_PORT = 3150;
 var connections_number = 0;
+//LIBRERIAS PARA TCP
+var querystring = require('querystring');
 
 //tcp device connection.
 
