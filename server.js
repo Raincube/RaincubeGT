@@ -86,9 +86,11 @@ io.on("connection", function (socket) {
 
 //TCP server
 net.createServer(function (connection) {
+
     console.log("NEW TCP CONNECTION");
 
     deviceConnected = connection;
+
     connections_number++
 
     io.emit("connectionsUpdated", {
