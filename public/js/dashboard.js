@@ -72,12 +72,10 @@ socket.on("newLevel", function (levels) {
     var raincubePercentage = raincubeFirstStep / raincubeHeight;
 
     if (pilaPercentage < 10) {
-        $("#pilaBar").toggleClass("progress-bar-danger");
+        $("#pilaBar").addClass("progress-bar-danger");
+    } else {
+        $("#pilaBar").removeClass("progress-bar-danger");
     }
-
-//    else {
-//        $("#pilaBar").toggleClass("progress-bar-danger");
-//    }
 
     var noDecimalasRaincubePercentage = Number(raincubePercentage).toFixed(0);
     var noDecimalsPilaPercentage = Number(pilaPercentage).toFixed(0);
