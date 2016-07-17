@@ -93,16 +93,27 @@ net.createServer(function (connection) {
         data_str = data_str.replace('\r\n', '');
         //CONVIRTIENDO DATA DE STRING A JSON.
         var telemetry_data = querystring.parse(data_str);
+
+        io.emit("newDatafromTCP", {
+            "data": data_str
+        });
+
         if (telemetry_data.id == undefined || telemetry_data.r == undefined || telemetry_data.p == undefined) {
             //If the keys have undefined data, do nothing.
+            console.log("undefined data");
+
             return;
         } else {
+
+
 
         }
     });
 
 
-    connection.setTimeout(600000, function () {});
+    connection.setTimeout(600000, function () {
+
+    });
 
     connection.on('timeout', function () {
         //when 'timeout' event is detected, the client connection is destroyed.
