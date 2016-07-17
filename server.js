@@ -124,19 +124,6 @@ net.createServer(function (connection) {
         }
     });
 
-    connection.setTimeout(600000, function () {});
-
-    connection.on('timeout', function () {
-        //when 'timeout' event is detected, the client connection is destroyed.
-        console.log("TIMEOUT REACHED.");
-        //remove the client from connections
-        connection.destroy();
-
-        io.emit("newDatafromTCP", {
-            "data": "Timeout Reached"
-        });
-    });
-
     connection.on('close', function () {
         console.log('TCP DEVICE DISCONNECTED.');
         connections_number--;
