@@ -79,8 +79,6 @@ io.on("connection", function (socket) {
             });
         }
     });
-
-
 });
 
 
@@ -117,7 +115,6 @@ net.createServer(function (connection) {
         } else {
 
             console.log("GOOD DATA");
-
             io.emit("newDatafromTCP", {
                 "data": data_str
             });

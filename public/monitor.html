@@ -18,7 +18,7 @@
 <body>
     <div class="container" id="jumboMonitor">
         <div class="row">
-            <div class="jumbotron col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+            <div class="jumbotron col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h1 id="jumboLabel">Monitor de conexiones</h1>
                 <p>Número de conexiones activas <a class="btn btn-default" role="button"><strong id="cantidadLabel"></strong></a></p>
             </div>
@@ -48,24 +48,33 @@
 
     <script type="application/javascript">
         var socket = io();
+        var ultimosDatos = [];
 
         socket.on("connectionsUpdated", function (data) {
             $("#cantidadLabel").text(data.cantidad);
         });
 
-        socket.on("newDatafromTCP", function (object) {
-            if (object.data === "Timeout Reached") {
-                $("#listadoData").prepend("<a class='list-group-item list-group-item-warning'>" + object.data + "</a>");
-            } else if (object.data === "DEVICE DISCONNECTED") {
-                $("#listadoData").prepend("<a class='list-group-item list-group-item-danger'>" + object.data + "</a>");
-            } else if (object.data === "NEW CONNECTION") {
-                $("#listadoData").prepend("<a class='list-group-item list-group-item-success'>" + object.data + "</a>");
-            } else {
-                $("#listadoData").prepend("<a class='list-group-item'>" + object.data + "</a>");
+        socket.on("newDatafromTCP", function (nuevoDato) {
+
+            if (ultimosDatos.length === 10) {
+                ultimosDatos.shift();
             }
 
-        });
+            ultimosDatos.push(nuevoDato);
+            $("a").remove("#dataThing");
 
+            ultimosDatos.forEach(function (object) {
+                if (object.data === "Timeout Reached") {
+                    $("#listadoData").prepend("<a class='list-group-item list-group-item-warning' id='dataThing'>" + object.data + "</a>");
+                } else if (object.data === "DEVICE DISCONNECTED") {
+                    $("#listadoData").prepend("<a class='list-group-item list-group-item-danger' id='dataThing'>" + object.data + "</a>");
+                } else if (object.data === "NEW CONNECTION") {
+                    $("#listadoData").prepend("<a class='list-group-item list-group-item-success' id='dataThing'>" + object.data + "</a>");
+                } else {
+                    $("#listadoData").prepend("<a class='list-group-item' id='dataThing'>" + object.data + "</a>");
+                }
+            });
+        });
     </script>
 
 </body>
