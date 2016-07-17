@@ -52,7 +52,7 @@ function halfPila() {
     socket.emit("halfPila");
 }
 
-socket.on("pilaRequest", function (data){
+socket.on("pilaRequest", function (data) {
     if (data.success === true) {
 
     } else {
@@ -60,14 +60,21 @@ socket.on("pilaRequest", function (data){
     }
 });
 
-socket.on("newLevel", function (levels){
-    $("#raincubeBar").css('width', levels.raincube+'%').attr('aria-valuenow', levels.raincube);
-    $("#pilaBar").css('width', levels.pila+'%').attr('aria-valuenow', levels.raincube);
+socket.on("newLevel", function (levels) {
 
-//    $("#raincubeBar").text(levels.raincube + " %");
-//    $("#pilaBar").text(levels.raincube + " %");
+    var pilaHeight = 80;
+    var raincubeHeight = 110;
 
+    var pilaFirstStep = levels.pila * 100;
+    var pilaPercentage = pilaFirstStep / pilaHeight;
+
+    var raincubeFirstStep = levels.raincube * 100;
+    var raincubePercentage = raincubeFirstStep / raincubeHeight;
+
+    $("#raincubeBar").css('width', raincubePercentage + '%').attr('aria-valuenow', raincubePercentage);
+    $("#pilaBar").css('width', pilaPercentage + '%').attr('aria-valuenow', pilaPercentage);
+
+    $("#raincubeBar").text(pilaPercentage + " %");
+    $("#pilaBar").text(raincubePercentage + " %");
 
 });
-
-
