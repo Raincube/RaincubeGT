@@ -9,7 +9,6 @@ var io = require("socket.io")(http);
 var net = require('net');
 app.use(express.static('public'));
 
-
 //VARIABLES PARA TCP.
 var TCP_HOST = "ec2-54-86-114-164.compute-1.amazonaws.com";
 var TCP_PORT = 3150;
@@ -18,8 +17,11 @@ var connections_number = 0;
 var querystring = require('querystring');
 
 //tcp device connection.
-
 var deviceConnected;
+var currentLevels = {
+    pila: 0,
+    raincube: 0
+};
 
 //AWS & DynamoDB
 AWS.config.update({
@@ -115,10 +117,15 @@ net.createServer(function (connection) {
         } else {
 
             console.log("GOOD DATA");
+
             io.emit("newDatafromTCP", {
                 "data": data_str
             });
 
+            currentLevels.pila = telemetry_data.p;
+            currentLevels.raincube = telemetry_data.r;
+
+            io.emit("newLevel", currentLevels);
         }
     });
 

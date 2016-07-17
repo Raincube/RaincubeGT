@@ -54,13 +54,13 @@ function halfPila() {
 
 socket.on("pilaRequest", function (data){
     if (data.success === true) {
-        console.log("Command was sent to device");
+
     } else {
-        console.log("Command was NOT sent to device");
+        alert("No se pudo comunicar con el equipo. Verifique conexión.");
     }
 });
 
-socket.on("updatedLevel", function (data){
+socket.on("newLevel", function (data){
     if (data.success === true) {
         console.log("Command was sent to device");
     } else {
