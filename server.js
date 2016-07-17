@@ -43,6 +43,12 @@ app.get('/monitor', function (req, res) {
 io.on("connection", function (socket) {
     console.log("New socket.io client");
 
+    //EVENTOS DEL WEBSITE........
+    //EN EL MONITOR DE CONEXIONES, SE ENVIA LA CANTIDAD DE CONEXIONES ACTUALES.
+    io.emit("connectionsUpdated", {
+        "cantidad": connections_number
+    });
+
     socket.on("halfPila", function (data) {
         console.log("HALF PILA REQUEST");
         try {
@@ -101,19 +107,14 @@ net.createServer(function (connection) {
         if (telemetry_data.id == undefined || telemetry_data.r == undefined || telemetry_data.p == undefined) {
             //If the keys have undefined data, do nothing.
             console.log("undefined data");
-
             return;
+
         } else {
-
-
-
+            console.log("GOOD DATA");
         }
     });
 
-
-    connection.setTimeout(600000, function () {
-
-    });
+    connection.setTimeout(600000, function () {});
 
     connection.on('timeout', function () {
         //when 'timeout' event is detected, the client connection is destroyed.

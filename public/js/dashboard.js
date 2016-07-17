@@ -39,3 +39,12 @@ socket.on("disconnect", function () {
 socket.on("reconnect", function () {
 
 });
+
+
+function fullPila() {
+    socket.emit("");
+}
+
+function halfPila() {
+    socket.emit("");
+}
