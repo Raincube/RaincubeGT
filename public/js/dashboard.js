@@ -60,12 +60,8 @@ socket.on("pilaRequest", function (data){
     }
 });
 
-socket.on("newLevel", function (data){
-    if (data.success === true) {
-        console.log("Command was sent to device");
-    } else {
-        console.log("Command was NOT sent to device");
-    }
+socket.on("newLevel", function (levels){
+    console.log(levels);
 });
 
 
