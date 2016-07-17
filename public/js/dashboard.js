@@ -24,3 +24,18 @@ $(document).ready(function(){
     }  // End if
   });
 });
+
+
+var socket = io();
+
+socket.on("connect", function () {
+
+});
+
+socket.on("disconnect", function () {
+
+});
+
+socket.on("reconnect", function () {
+
+});
