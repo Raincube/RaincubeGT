@@ -71,8 +71,19 @@ socket.on("newLevel", function (levels) {
     var raincubeFirstStep = levels.raincube * 100;
     var raincubePercentage = raincubeFirstStep / raincubeHeight;
 
+    if (pilaPercentage < 10) {
+        $("#pilaBar").toggleClass("progress-bar-danger");
+    }
+
+//    else {
+//        $("#pilaBar").toggleClass("progress-bar-danger");
+//    }
+
     var noDecimalasRaincubePercentage = Number(raincubePercentage).toFixed(0);
     var noDecimalsPilaPercentage = Number(pilaPercentage).toFixed(0);
+
+
+
 
     $("#raincubeBar").css('width', noDecimalasRaincubePercentage + '%').attr('aria-valuenow', noDecimalasRaincubePercentage);
     $("#pilaBar").css('width', noDecimalsPilaPercentage + '%').attr('aria-valuenow', noDecimalsPilaPercentage);
