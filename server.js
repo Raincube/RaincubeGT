@@ -55,11 +55,11 @@ io.on("connection", function (socket) {
         console.log("HALF PILA REQUEST");
         try {
             console.log(1, "send");
-            setTimeout(function(){deviceConnected.write("H");}, 3000);
+            setTimeout(function(){deviceConnected.write("H");}, 2);
             console.log(2, "send");
-            setTimeout(function(){deviceConnected.write("H");}, 3000);
+            setTimeout(function(){deviceConnected.write("H");}, 2);
             console.log(3, "send");
-            setTimeout(function(){deviceConnected.write("H");}, 3000);
+            setTimeout(function(){deviceConnected.write("H");}, 2);
             socket.emit("pilaRequest", {
                 success: true
             });
@@ -76,11 +76,11 @@ io.on("connection", function (socket) {
 
         try {
             console.log(1, "send");
-            setTimeout(function(){deviceConnected.write("F");}, 3000);
+            setTimeout(function(){deviceConnected.write("F");}, 2);
             console.log(2, "send");
-            setTimeout(function(){deviceConnected.write("F");}, 3000);
+            setTimeout(function(){deviceConnected.write("F");}, 2);
             console.log(3, "send");
-            setTimeout(function(){deviceConnected.write("F");}, 3000);
+            setTimeout(function(){deviceConnected.write("F");}, 2);
             socket.emit("pilaRequest", {
                 success: true
             });
