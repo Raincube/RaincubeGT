@@ -52,7 +52,7 @@ io.on("connection", function (socket) {
     socket.on("halfPila", function (data) {
         console.log("HALF PILA REQUEST");
         try {
-            deviceConnected.write("{H}");
+            deviceConnected.write("H");
             socket.emit("pilaRequest", {
                 success: true
             });
@@ -68,7 +68,7 @@ io.on("connection", function (socket) {
         console.log("FULL PILA REQUEST");
 
         try {
-            deviceConnected.write("{F}");
+            deviceConnected.write("F");
             socket.emit("pilaRequest", {
                 success: true
             });
