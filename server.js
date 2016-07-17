@@ -56,7 +56,8 @@ io.on("connection", function (socket) {
     });
 
     socket.on("fullPila", function (data) {
-        console.log("FULL PILA REQUEST"); +
+        console.log("FULL PILA REQUEST");
+
         try {
             deviceConnected.write("{F}");
             socket.emit("pilaRequest", {
