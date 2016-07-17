@@ -91,6 +91,14 @@ net.createServer(function (connection) {
     deviceConnected = connection;
     connections_number++
 
+    io.emit("connectionsUpdated", {
+        "cantidad": connections_number
+    });
+
+    io.emit("newDatafromTCP", {
+        "data": "NEW CONNECTION"
+    });
+
     connection.on('data', function (data) {
         //Converting buffer data to String
         var data_str = data.toString();
