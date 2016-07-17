@@ -80,6 +80,7 @@ net.createServer(function (connection) {
     console.log("NEW TCP CONNECTION");
 
     deviceConnected = connection;
+    connections_number++
 
     connection.on('data', function (data) {
         //Converting buffer data to String
@@ -113,6 +114,7 @@ net.createServer(function (connection) {
 
     connection.on('close', function () {
         console.log('TCP DEVICE DISCONNECTED.');
+        connections_number--;
 
         io.emit("newDatafromTCP", {
             "data": "DEVICE DISCONNECTED"
