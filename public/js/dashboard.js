@@ -65,11 +65,22 @@ socket.on("newLevel", function (levels) {
     var pilaHeight = 80;
     var raincubeHeight = 110;
 
-    var pilaFirstStep = levels.pila * 100;
+    var pilaWaterHeight = pilaHeight - levels.pila;
+    var raincubeWaterHeight = raincubeHeight - levels.raincube;
+
+    var pilaFirstStep = pilaWaterHeight * 100;
     var pilaPercentage = pilaFirstStep / pilaHeight;
 
-    var raincubeFirstStep = levels.raincube * 100;
+    var raincubeFirstStep = raincubeWaterHeight * 100;
     var raincubePercentage = raincubeFirstStep / raincubeHeight;
+
+    if (pilaPercentage < 0) {
+        pilaPercentage = 0
+    }
+
+    if (raincubePercentage < 0) {
+        raincubePercentage = 0
+    }
 
     if (pilaPercentage < 10) {
         $("#pilaBar").addClass("progress-bar-danger");
@@ -94,9 +105,6 @@ socket.on("newLevel", function (levels) {
 
     var noDecimalasRaincubePercentage = Number(raincubePercentage).toFixed(0);
     var noDecimalsPilaPercentage = Number(pilaPercentage).toFixed(0);
-
-
-
 
     $("#raincubeBar").css('width', noDecimalasRaincubePercentage + '%').attr('aria-valuenow', noDecimalasRaincubePercentage);
     $("#pilaBar").css('width', noDecimalsPilaPercentage + '%').attr('aria-valuenow', noDecimalsPilaPercentage);
