@@ -54,6 +54,10 @@ io.on("connection", function (socket) {
         "cantidad": connections_number
     });
 
+    io.emit("newDatafromTCP", {
+        "data": mensajesMonitor
+    });
+
     socket.on("halfPila", function (data) {
         console.log("HALF PILA REQUEST");
         try {
