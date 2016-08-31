@@ -45,7 +45,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-
+    <script type="text/javascript" src="js/moment.js"></script>
     <script type="application/javascript">
         var socket = io();
 
@@ -55,7 +55,7 @@
 
         socket.on("newDatafromTCP", function (datos) {
             console.log(datos);
-             $("a").remove("#dataThing");
+            $("a").remove("#dataThing");
             datos.data.forEach(function (object) {
                 if (object.contenido === "Timeout Reached") {
                     $("#listadoData").prepend("<a class='list-group-item list-group-item-warning' id='dataThing'>" + moment(object.fechaObjeto).format("DD-MM-YYYY hh:mm a") + ": " + object.contenido + "</a>");
