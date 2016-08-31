@@ -48,30 +48,23 @@
 
     <script type="application/javascript">
         var socket = io();
-        var ultimosDatos = [];
 
         socket.on("connectionsUpdated", function (data) {
             $("#cantidadLabel").text(data.cantidad);
         });
 
-        socket.on("newDatafromTCP", function (nuevoDato) {
-
-            if (ultimosDatos.length === 10) {
-                ultimosDatos.shift();
-            }
-
-            ultimosDatos.push(nuevoDato);
-            $("a").remove("#dataThing");
-
-            ultimosDatos.forEach(function (object) {
-                if (object.data === "Timeout Reached") {
-                    $("#listadoData").prepend("<a class='list-group-item list-group-item-warning' id='dataThing'>" + object.data + "</a>");
-                } else if (object.data === "DEVICE DISCONNECTED") {
-                    $("#listadoData").prepend("<a class='list-group-item list-group-item-danger' id='dataThing'>" + object.data + "</a>");
-                } else if (object.data === "NEW CONNECTION") {
-                    $("#listadoData").prepend("<a class='list-group-item list-group-item-success' id='dataThing'>" + object.data + "</a>");
+        socket.on("newDatafromTCP", function (datos) {
+            console.log(datos);
+             $("a").remove("#dataThing");
+            datos.data.forEach(function (object) {
+                if (object.contenido === "Timeout Reached") {
+                    $("#listadoData").prepend("<a class='list-group-item list-group-item-warning' id='dataThing'>" + moment(object.fechaObjeto).format("DD-MM-YYYY hh:mm a") + ": " + object.contenido + "</a>");
+                } else if (object.contenido === "DEVICE DISCONNECTED") {
+                    $("#listadoData").prepend("<a class='list-group-item list-group-item-danger' id='dataThing'>" + moment(object.fechaObjeto).format("DD-MM-YYYY hh:mm a") + ": " + object.contenido + "</a>");
+                } else if (object.contenido === "NEW CONNECTION") {
+                    $("#listadoData").prepend("<a class='list-group-item list-group-item-success' id='dataThing'>" + moment(object.fechaObjeto).format("DD-MM-YYYY hh:mm a") + ": " + object.contenido + "</a>");
                 } else {
-                    $("#listadoData").prepend("<a class='list-group-item' id='dataThing'>" + object.data + "</a>");
+                    $("#listadoData").prepend("<a class='list-group-item' id='dataThing'>" + moment(object.fechaObjeto).format("DD-MM-YYYY hh:mm a") + ": " + object.contenido + "</a>");
                 }
             });
         });

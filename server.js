@@ -8,6 +8,7 @@ var http = require("http").Server(app);
 var io = require("socket.io")(http);
 var net = require('net');
 app.use(express.static('public'));
+var mensajesMonitor = [];
 
 //VARIABLES PARA TCP.
 var TCP_HOST = "ec2-54-86-114-164.compute-1.amazonaws.com";
@@ -96,6 +97,26 @@ io.on("connection", function (socket) {
 });
 
 
+function newMonitorInfo(newString) {
+
+    if (mensajesMonitor.length === 20) {
+        mensajesMonitor.shift();
+    }
+    var fecha = new Date().getTime();
+
+    var contenido = {
+        fechaObjeto: fecha,
+        contenido: newString
+    }
+
+    mensajesMonitor.push(contenido);
+
+    io.emit("newDatafromTCP", {
+        "data": mensajesMonitor
+    });
+
+
+}
 //TCP server
 net.createServer(function (connection) {
 
@@ -111,9 +132,7 @@ net.createServer(function (connection) {
         "cantidad": connections_number
     });
 
-    io.emit("newDatafromTCP", {
-        "data": "NEW CONNECTION"
-    });
+     newMonitorInfo("NEW CONNECTION");
 
     connection.on('data', function (data) {
         //Converting buffer data to String
@@ -132,9 +151,7 @@ net.createServer(function (connection) {
 
             console.log("GOOD DATA");
 
-            io.emit("newDatafromTCP", {
-                "data": data_str
-            });
+            newMonitorInfo(data_str);
 
             currentLevels.pila = telemetry_data.p;
             currentLevels.raincube = telemetry_data.r;
@@ -147,9 +164,7 @@ net.createServer(function (connection) {
         console.log('TCP DEVICE DISCONNECTED.');
         connections_number--;
 
-        io.emit("newDatafromTCP", {
-            "data": "DEVICE DISCONNECTED"
-        });
+        newMonitorInfo("DEVICE DISCONNECTED");
 
         io.emit("connectionsUpdated", {
             "cantidad": connections_number
