@@ -62,10 +62,10 @@ socket.on("pilaRequest", function (data) {
 
 socket.on("newLevel", function (levels) {
 
-    var pilaHeight = 80;
-    var raincubeHeight = 110;
-
-    var pilaWaterHeight = pilaHeight - levels.pila;
+    var pilaHeight = 50;
+    var raincubeHeight = 90;
+    var correccionPila  = levels.pila - 35;
+    var pilaWaterHeight = pilaHeight - correccionPila;
     var raincubeWaterHeight = raincubeHeight - levels.raincube;
 
     var pilaFirstStep = pilaWaterHeight * 100;
