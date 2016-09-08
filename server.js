@@ -153,7 +153,12 @@ net.createServer(function (connection) {
             return;
         } else {
             console.log("GOOD DATA");
-            deviceConnected.write("O");
+            console.log(1, "send");
+            setTimeout(function(){deviceConnected.write("O");}, 2);
+            console.log(2, "send");
+            setTimeout(function(){deviceConnected.write("O");}, 2);
+            console.log(3, "send");
+            setTimeout(function(){deviceConnected.write("O");}, 2);
 
             newMonitorInfo(data_str);
 
