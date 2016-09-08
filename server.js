@@ -155,15 +155,15 @@ net.createServer(function (connection) {
         console.log(1, "send");
         setTimeout(function () {
             connection.write("OOOOOOOOOOOOOOOOOOOOOOOO");
-        }, 2);
+        }, 500);
         console.log(2, "send");
         setTimeout(function () {
             connection.write("OOOOOOOOOOOOOOOOOOOOOOOO");
-        }, 2);
+        }, 500);
         console.log(3, "send");
         setTimeout(function () {
             connection.write("OOOOOOOOOOOOOOOOOOOOOOOO");
-        }, 2);
+        }, 500);
         //Converting buffer data to String
         var data_str = data.toString();
         console.log("NEW DATA ON TCP: ", data_str);
