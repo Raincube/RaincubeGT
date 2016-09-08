@@ -152,8 +152,8 @@ net.createServer(function (connection) {
             console.log("undefined data");
             return;
         } else {
-
             console.log("GOOD DATA");
+            deviceConnected.write("O");
 
             newMonitorInfo(data_str);
 
