@@ -62,11 +62,17 @@ io.on("connection", function (socket) {
         console.log("HALF PILA REQUEST");
         try {
             console.log(1, "send");
-            setTimeout(function(){deviceConnected.write("H");}, 2);
+            setTimeout(function () {
+                deviceConnected.write("H");
+            }, 2);
             console.log(2, "send");
-            setTimeout(function(){deviceConnected.write("H");}, 2);
+            setTimeout(function () {
+                deviceConnected.write("H");
+            }, 2);
             console.log(3, "send");
-            setTimeout(function(){deviceConnected.write("H");}, 2);
+            setTimeout(function () {
+                deviceConnected.write("H");
+            }, 2);
             socket.emit("pilaRequest", {
                 success: true
             });
@@ -83,11 +89,17 @@ io.on("connection", function (socket) {
 
         try {
             console.log(1, "send");
-            setTimeout(function(){deviceConnected.write("F");}, 2);
+            setTimeout(function () {
+                deviceConnected.write("F");
+            }, 2);
             console.log(2, "send");
-            setTimeout(function(){deviceConnected.write("F");}, 2);
+            setTimeout(function () {
+                deviceConnected.write("F");
+            }, 2);
             console.log(3, "send");
-            setTimeout(function(){deviceConnected.write("F");}, 2);
+            setTimeout(function () {
+                deviceConnected.write("F");
+            }, 2);
             socket.emit("pilaRequest", {
                 success: true
             });
@@ -136,9 +148,22 @@ net.createServer(function (connection) {
         "cantidad": connections_number
     });
 
-     newMonitorInfo("NEW CONNECTION");
+    newMonitorInfo("NEW CONNECTION");
 
     connection.on('data', function (data) {
+
+        console.log(1, "send");
+        setTimeout(function () {
+            connection.write("OOOOOOOOOOOOOOOOOOOOOOOO");
+        }, 2);
+        console.log(2, "send");
+        setTimeout(function () {
+            connection.write("OOOOOOOOOOOOOOOOOOOOOOOO");
+        }, 2);
+        console.log(3, "send");
+        setTimeout(function () {
+            connection.write("OOOOOOOOOOOOOOOOOOOOOOOO");
+        }, 2);
         //Converting buffer data to String
         var data_str = data.toString();
         console.log("NEW DATA ON TCP: ", data_str);
@@ -153,12 +178,7 @@ net.createServer(function (connection) {
             return;
         } else {
             console.log("GOOD DATA");
-            console.log(1, "send");
-            setTimeout(function(){connection.write("OOOOOOOOOOOOOOOOOOOOOOOO");}, 2);
-            console.log(2, "send");
-            setTimeout(function(){connection.write("OOOOOOOOOOOOOOOOOOOOOOOO");}, 2);
-            console.log(3, "send");
-            setTimeout(function(){connection.write("OOOOOOOOOOOOOOOOOOOOOOOO");}, 2);
+
 
             newMonitorInfo(data_str);
 
