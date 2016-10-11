@@ -62,11 +62,17 @@ io.on("connection", function (socket) {
         console.log("HALF PILA REQUEST");
         try {
             console.log(1, "send");
-            setTimeout(function(){deviceConnected.write("H");}, 2);
+            setTimeout(function () {
+                deviceConnected.write("H");
+            }, 2);
             console.log(2, "send");
-            setTimeout(function(){deviceConnected.write("H");}, 2);
+            setTimeout(function () {
+                deviceConnected.write("H");
+            }, 2);
             console.log(3, "send");
-            setTimeout(function(){deviceConnected.write("H");}, 2);
+            setTimeout(function () {
+                deviceConnected.write("H");
+            }, 2);
             socket.emit("pilaRequest", {
                 success: true
             });
@@ -83,11 +89,17 @@ io.on("connection", function (socket) {
 
         try {
             console.log(1, "send");
-            setTimeout(function(){deviceConnected.write("F");}, 2);
+            setTimeout(function () {
+                deviceConnected.write("F");
+            }, 2);
             console.log(2, "send");
-            setTimeout(function(){deviceConnected.write("F");}, 2);
+            setTimeout(function () {
+                deviceConnected.write("F");
+            }, 2);
             console.log(3, "send");
-            setTimeout(function(){deviceConnected.write("F");}, 2);
+            setTimeout(function () {
+                deviceConnected.write("F");
+            }, 2);
             socket.emit("pilaRequest", {
                 success: true
             });
@@ -99,7 +111,6 @@ io.on("connection", function (socket) {
         }
     });
 });
-
 
 function newMonitorInfo(newString) {
 
@@ -126,7 +137,20 @@ net.createServer(function (connection) {
 
     console.log("*************NEW TCP CONNECTION**************");
 
-    deviceConnected = connection;
+
+
+    if (typeof deviceConnected === "undefined") {
+        //if the connection is not on in the object, Add it to the deviceConnections object.
+        deviceConnected = connection;
+    } else {
+        //If there is a connection with the same ID in the object, check if it is the same as this one.
+        //If it is different close and destroy the previous one, and replace it with the new one.
+        //Else do nothing.
+        if (deviceConnected !== connection) {
+            deviceConnected.destroy();
+            deviceConnected = connection;
+        }
+    }
 
     connections_number++
 
@@ -136,7 +160,7 @@ net.createServer(function (connection) {
         "cantidad": connections_number
     });
 
-     newMonitorInfo("NEW CONNECTION");
+    newMonitorInfo("NEW CONNECTION");
 
     connection.on('data', function (data) {
         //Converting buffer data to String
