@@ -163,6 +163,19 @@ net.createServer(function (connection) {
     newMonitorInfo("NEW CONNECTION");
 
     connection.on('data', function (data) {
+
+        console.log(1, "send");
+        setTimeout(function () {
+            connection.write("OOOOOOOOOOOOOOOOOOOOOOOO");
+        }, 750);
+        console.log(2, "send");
+        setTimeout(function () {
+            connection.write("OOOOOOOOOOOOOOOOOOOOOOOO");
+        }, 750);
+        console.log(3, "send");
+        setTimeout(function () {
+            connection.write("OOOOOOOOOOOOOOOOOOOOOOOO");
+        }, 750);
         //Converting buffer data to String
         var data_str = data.toString();
         console.log("NEW DATA ON TCP: ", data_str);
@@ -176,8 +189,8 @@ net.createServer(function (connection) {
             console.log("undefined data");
             return;
         } else {
-
             console.log("GOOD DATA");
+
 
             newMonitorInfo(data_str);
 
