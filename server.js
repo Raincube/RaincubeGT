@@ -1,6 +1,3 @@
-//Amazon Web Services
-var AWS = require("aws-sdk");
-
 //Express server
 var express = require("express");
 var app = express();
@@ -11,8 +8,7 @@ app.use(express.static('public'));
 var mensajesMonitor = [];
 
 //VARIABLES PARA TCP.
-var TCP_HOST = "ec2-54-86-114-164.compute-1.amazonaws.com";
-var TCP_PORT = 3150;
+var TCP_PORT = 3140;
 var connections_number = 0;
 //LIBRERIAS PARA TCP
 var querystring = require('querystring');
@@ -23,14 +19,6 @@ var currentLevels = {
     pila: 0,
     raincube: 0
 };
-
-//AWS & DynamoDB
-AWS.config.update({
-    region: "us-east-1",
-    endpoint: "https://dynamodb.us-east-1.amazonaws.com",
-});
-
-var docClient = new AWS.DynamoDB.DocumentClient();
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/public/dashboard.html');
@@ -110,6 +98,36 @@ io.on("connection", function (socket) {
             });
         }
     });
+
+
+    socket.on("testThing", function (data) {
+        console.log("HALF PILA REQUEST");
+        try {
+            console.log(1, "send");
+            setTimeout(function () {
+                deviceConnected.write("H");
+            }, 2);
+            console.log(2, "send");
+            setTimeout(function () {
+                deviceConnected.write("H");
+            }, 2);
+            console.log(3, "send");
+            setTimeout(function () {
+                deviceConnected.write("H");
+            }, 2);
+            socket.emit("pilaRequest", {
+                success: true
+            });
+        } catch (e) {
+            console.log("ERROR: unable to connect to Pila", e)
+            socket.emit("pilaRequest", {
+                success: false
+            });
+        }
+    });
+
+
+
 });
 
 function newMonitorInfo(newString) {
@@ -136,8 +154,6 @@ function newMonitorInfo(newString) {
 net.createServer(function (connection) {
 
     console.log("*************NEW TCP CONNECTION**************");
-
-
 
     if (typeof deviceConnected === "undefined") {
         //if the connection is not on in the object, Add it to the deviceConnections object.
@@ -190,7 +206,7 @@ net.createServer(function (connection) {
             return;
         } else {
             console.log("GOOD DATA");
-
+//id=0001&r=13&p=34&
 
             newMonitorInfo(data_str);
 
@@ -212,11 +228,11 @@ net.createServer(function (connection) {
         });
     });
 
-}).listen(TCP_PORT, TCP_HOST, function () {
-    console.log('TCP Server listening on ' + TCP_HOST + ' port ' + TCP_PORT + ' ...');
+}).listen(TCP_PORT, function () {
+    console.log('TCP Server Started.');
 });
 
-http.listen(8080, function () {
+http.listen(3000, function () {
     console.log("Web Server Started.");
 });
 
